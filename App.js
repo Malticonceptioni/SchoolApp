@@ -20,6 +20,7 @@ import StudentListPage from './src/StudentListPage';
 import AddStudentPage from './src/AddStudentPage';
 import MyStudentListPage from './src/MyStudentListPage';
 import ParentDetailPage from './src/ParentDetailPage';
+import StudentProfessorPage from './src/StudentProfessorPage';
 
 import { Router, Scene } from 'react-native-router-flux';
 import React, { Fragment, Component, View } from 'react';
@@ -55,6 +56,7 @@ export default class App extends Component {
                         <Scene key="AddStudentPage" component={AddStudentPage} title='AddStudentPage' hideNavBar={true} />
                         <Scene key="MyStudentListPage" component={MyStudentListPage} hideNavBar={true} />
                         <Scene key="ParentDetailPage" component={ParentDetailPage} hideNavBar={true}/>
+                        <Scene key="StudentProfessorPage" component={StudentProfessorPage} hideNavBar={true}/>
                         {/* <Scene key="ProfessorChatPage" component={ProfessorChatPage} title='ProfessorChatPage' hideNavBar={true} /> */}
                     </Scene>
                 </Router>

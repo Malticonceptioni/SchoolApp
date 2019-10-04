@@ -301,7 +301,7 @@ class LoginPage extends React.Component {
                   <TouchableOpacity onPress={() => { Actions.ParentRegistrationPage() }} >
                     <View style={{ alignSelf: 'center', flexDirection: 'row', alignItems: 'center', marginTop: 6 }}>
                       <Text style={{ fontSize: 12, fontFamily: Global.SnigletRegularfont }}>Don't have an account? </Text>
-                      <Text style={{ fontSize: 14, fontFamily: Global.SnigletRegularfont, color: Global.SecondColor }}>Signup</Text>
+                      <Text style={{ padding:6,fontSize: 14, fontFamily: Global.SnigletRegularfont, color: '#FFFFFF', backgroundColor:'pink'}}>S'inscrire</Text>
                     </View>
                   </TouchableOpacity>
                 }

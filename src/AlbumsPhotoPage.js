@@ -9,7 +9,7 @@ import CardView from 'react-native-cardview';
 // Dummy Data
 import Dummydata from './dummy';
 import ProgressLoader from 'rn-progress-loader';
-// import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-simple-toast';
 
 // create a component
 class AlbumsPhotoPage extends Component {
@@ -64,7 +64,6 @@ class AlbumsPhotoPage extends Component {
     LikeOptionUpdateList() {
         if (this.state.album.like_status == '0') {
             this.setState({ entries: this.state.entries_like });
-
         }
         else if (this.state.album.like_status == '1') {
             this.setState({ entries: this.state.entries_unlike });
@@ -110,6 +109,10 @@ class AlbumsPhotoPage extends Component {
     }
 
     likeAction(value) {
+        if(value=='true')
+        {
+        this.LikeOptionUpdateList();
+        }
         // const newArray = [...this.state.album];
         // newArray.isVisiable = value;
         // this.setState({ album: newArray });
@@ -118,6 +121,7 @@ class AlbumsPhotoPage extends Component {
     }
 
     EmotionAPICall(index, indexinner) {
+        
         this.setState({ visibleindicator: true });
         this.likeAction('false')
 
@@ -126,16 +130,16 @@ class AlbumsPhotoPage extends Component {
         formdata.append("fk_album", this.props.albumid)
         formdata.append("chr_type", this.state.isProfessor == 'true' ? 'P' : 'U')
         if (indexinner == '0') {
-            new_likestateus = '0'
-            formdata.append("emoji_type", new_likestateus)
+            this.setState({new_likestateus : '0'});
+            formdata.append("emoji_type", indexinner)
         }
         if (indexinner == '1') {
-            new_likestateus = '1'
-            formdata.append("emoji_type", new_likestateus)
+            this.setState({new_likestateus :'1'});
+            formdata.append("emoji_type", indexinner)
         }
         else if (indexinner == '2') {
-            new_likestateus = '2'
-            formdata.append("emoji_type", new_likestateus)
+            this.setState({new_likestateus : '2'});
+            formdata.append("emoji_type",indexinner)
         }
 
 
@@ -157,11 +161,7 @@ class AlbumsPhotoPage extends Component {
                     // else if (new_likestateus == 0) {
                     //     this.state.album.like_count = this.state.album.like_count - 1;
                     // }
-                    this.state.album.like_status = new_likestateus;
-
-                    this.LikeOptionUpdateList();
-
-                    Toast.show(responseJson.message, Toast.LONG);
+                    this.state.album.like_status = this.state.new_likestateus;
                     this.setState({ new_likestateus: '' })
                     this.forceUpdate()
 

@@ -31,7 +31,8 @@ class AlbumPhotoDetailPage extends Component {
             isAddAlbum: 'true',
             new_likestateus: '',
             base64image: '',
-            entries_like: [{ image: require('../images/like.png'), index: '1' }, { image: require('../images/heart.png'), index: '2' }],
+            entries_like:[],
+            entries_like_option: [{ image: require('../images/like.png'), index: '1' }, { image: require('../images/heart.png'), index: '2' }],
             entries_unlike: [{ image: require('../images/like_gray.png'), index: '0' }, { image: require('../images/heart.png'), index: '2' }],
             visibleindicator: false
         }
@@ -162,15 +163,17 @@ class AlbumPhotoDetailPage extends Component {
         }
     };
 
-    likeAction(index, value) {  
-        if (this.state.entries[index].like_status == '0') {
-            this.setState({ entries_like: this.state.entries_like });
-        }
-        else if (this.state.entries[index].like_status == '1') {
-            this.setState({ entries_like: this.state.entries_unlike });
-        }
-        else if (this.state.entries[index].like_status == '2') {
-            this.setState({ entries_like: this.state.entries_like });
+    likeAction(index, value) {
+        if (value == 'true') {
+            if (this.state.entries[this.state.activeSlide].like_status == '0') {
+                this.setState({ entries_like: this.state.entries_like_option });
+            }
+            else if (this.state.entries[this.state.activeSlide].like_status == '1') {
+                this.setState({ entries_like: this.state.entries_unlike });
+            }
+            else if (this.state.entries[this.state.activeSlide].like_status == '2') {
+                this.setState({ entries_like: this.state.entries_like_option });
+            }
         }
 
         const newArray = [...this.state.entries];
@@ -187,16 +190,16 @@ class AlbumPhotoDetailPage extends Component {
         formdata.append("fk_image", this.state.entries[this.state.activeSlide].int_glcode)
         formdata.append("chr_type", this.state.isProfessor == 'true' ? 'P' : 'U')
         if (indexinner == '0') {
-            new_likestateus = '0'
-            formdata.append("emoji_type", new_likestateus)
+            this.setState({ new_likestateus: '0' });
+            formdata.append("emoji_type", indexinner)
         }
         else if (indexinner == '1') {
-            new_likestateus = '1'
-            formdata.append("emoji_type", new_likestateus)
+            this.setState({ new_likestateus: '1' });
+            formdata.append("emoji_type", indexinner)
         }
         else if (indexinner == '2') {
-            new_likestateus = '2'
-            formdata.append("emoji_type", new_likestateus)
+            this.setState({ new_likestateus: '2' });
+            formdata.append("emoji_type", indexinner)
         }
 
         fetch('http://athrans.be/api/media/ImageLikes', {
@@ -213,13 +216,14 @@ class AlbumPhotoDetailPage extends Component {
 
                     // //remove value from new_likestateus
                     // this.setState({ new_likestateus: '' })
+                    this.setState({ visibleindicator: false })
 
-                    this.state.entries[this.state.activeSlide].like_status = indexinner;
+                    this.state.entries[this.state.activeSlide].like_status = this.state.new_likestateus;
                     this.setState({ new_likestateus: '' })
                     this.forceUpdate()
 
                     // Toast.show(responseJson.message, Toast.LONG);
-                    this.setState({ visibleindicator: false })
+                   
                 } else {
                     // if (responseJson.error.code == 398) {
                     //     // Toast.show("Token invalide", Toast.LONG);
@@ -238,7 +242,6 @@ class AlbumPhotoDetailPage extends Component {
                 Alert.alert(error.stringify());
                 this.setState({ visibleindicator: false })
             });
-
     }
 
     // Hide Navigation Bar

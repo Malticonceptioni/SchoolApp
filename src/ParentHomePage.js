@@ -143,10 +143,10 @@ class ParentHomePage extends React.Component {
     //check data validation on submit
     finalSubmit(value) {
         if (value == 1) {
-            Actions.ProfessorPage();
+            Actions.StudentProfessorPage();
         }
         else if (value == 2) {
-            Actions.ApproveParentPage();
+            Actions.StudentListPage();
         }
         else if (value == 3) {
             Actions.AlbumListPage({ isProfessor: 'false' });
@@ -199,7 +199,7 @@ class ParentHomePage extends React.Component {
                                 { position: '3', name: 'Albums', color:'#0C4C8A',},
                                 // { position: '3', name: 'Albums', color: Global.SecondColor, },
                                 // { position: '4', name: 'Chat',color:'#0C8A83' ,},
-                                { position: '4', name: 'My Child', color: '#0C4C8A', },
+                                // { position: '4', name: 'My Child', color: '#0C4C8A', },
                             ]}
                             renderItem={({ item }) => (
 
